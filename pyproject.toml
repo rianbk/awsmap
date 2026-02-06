@@ -32,7 +32,7 @@ dependencies = [
     "boto3>=1.26.0",
     "click>=8.0.0",
     "pyyaml>=6.0.0",
-    "awscrt>=0.16.0",  # Required for SSO credential provider
+    "botocore[crt]>=1.29.0",  # For aws login credential support
 ]
 
 [project.urls]
