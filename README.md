@@ -9,16 +9,16 @@
   <a href="https://hub.docker.com/r/tarekcheikh/awsmap"><img src="https://img.shields.io/docker/pulls/tarekcheikh/awsmap" alt="Docker Pulls"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="License: MIT"></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python 3.8+"></a>
-  <a href="https://aws.amazon.com/"><img src="https://img.shields.io/badge/AWS-140%2B_Services-orange.svg" alt="AWS Services"></a>
+  <a href="https://aws.amazon.com/"><img src="https://img.shields.io/badge/AWS-150%2B_Services-orange.svg" alt="AWS Services"></a>
 </p>
 
 # awsmap
 
-A fast, comprehensive tool for mapping and inventorying AWS resources across 140+ services and all regions.
+A fast, comprehensive tool for mapping and inventorying AWS resources across 150+ services and all regions.
 
 ## Features
 
-- **140+ AWS Services**: Covers compute, storage, database, networking, security, and more
+- **150+ AWS Services**: Covers compute, storage, database, networking, security, and more
 - **Multi-Region**: Parallel scanning across all enabled regions
 - **Tag Filtering**: Filter resources by tags with OR logic for same key, AND logic across keys
 - **Beautiful HTML Reports**: Interactive reports with search, filters, dark mode, and export
@@ -126,13 +126,13 @@ awsmap -p myprofile --timings
 |----------|----------|
 | **Compute** | ec2, lambda, ecs, eks, ecr, ecr-public, lightsail, autoscaling, application-autoscaling, elasticbeanstalk, batch, apprunner, imagebuilder |
 | **Storage** | s3, efs, fsx, backup, datasync, dlm, storagegateway |
-| **Database** | rds, dynamodb, elasticache, memorydb, docdb, neptune, redshift, redshift-serverless, keyspaces, opensearch, opensearch-serverless, dax |
+| **Database** | rds, dynamodb, elasticache, memorydb, docdb, neptune, redshift, redshift-serverless, keyspaces, opensearch, opensearch-serverless, dax, dsql, timestream-influxdb |
 | **Networking** | vpc, elbv2, elb, route53, route53resolver, route53domains, cloudfront, globalaccelerator, apigateway, apigatewayv2, appsync, directconnect, network-firewall, servicediscovery, vpc-lattice, networkmanager |
 | **Security** | iam, sso, kms, secretsmanager, acm, acm-pca, wafv2, guardduty, inspector2, securityhub, ds, cognito, accessanalyzer, macie2, detective, shield, fms, cloudhsmv2, auditmanager, securitylake |
 | **Management & Monitoring** | cloudwatch, logs, cloudtrail, ssm, config, sns, sqs, events, xray, grafana, amp, ce, budgets, compute-optimizer, service-quotas, resource-groups, health, synthetics, appconfig, organizations, servicecatalog, resiliencehub |
 | **Serverless** | stepfunctions, kinesis, firehose, kafka, serverlessrepo, eventbridge-scheduler, eventbridge-pipes, schemas |
 | **Developer Tools** | cloudformation, codeartifact, codebuild, codepipeline, codedeploy, devicefarm |
-| **Analytics** | athena, glue, mwaa, lakeformation, emr, emr-serverless, cleanrooms |
+| **Analytics** | athena, glue, mwaa, lakeformation, emr, emr-serverless, cleanrooms, quicksight, datazone |
 | **AI/ML** | sagemaker, bedrock, lexv2, rekognition, textract, transcribe, translate, comprehend, polly, personalize, kendra, frauddetector |
 | **Media** | mediaconvert, mediaconnect, mediapackage, medialive, mediastore, mediatailor, ivs |
 | **Migration & Transfer** | transfer, dms |
@@ -242,7 +242,7 @@ awsmap -s s3
 
 ## Performance
 
-Scans **140+ services** across all regions in parallel.
+Scans **150+ services** across all regions in parallel.
 
 | Account Size | Resources | Estimated Time |
 |--------------|-----------|----------------|

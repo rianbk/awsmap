@@ -1,6 +1,6 @@
 # Supported AWS Services
 
-This document lists all 147 AWS services supported by the AWS Inventory Tool, along with the specific resource types collected for each service.
+This document lists all 150 AWS services supported by the AWS Inventory Tool, along with the specific resource types collected for each service.
 
 **Legend:**
 - *(global)* - Service is collected once globally, not per-region
@@ -115,6 +115,9 @@ EC2 Image Builder
 ### s3 *(global)*
 Amazon Simple Storage Service
 - `bucket` - S3 buckets
+- `table-bucket` - S3 Tables table buckets
+- `namespace` - S3 Tables namespaces
+- `table` - S3 Tables tables
 
 ### efs
 Amazon Elastic File System
@@ -159,7 +162,7 @@ AWS Storage Gateway
 
 ---
 
-## Database (12 services)
+## Database (14 services)
 
 ### rds
 Amazon Relational Database Service
@@ -238,6 +241,15 @@ Amazon DynamoDB Accelerator
 - `cluster` - DAX clusters
 - `parameter-group` - Parameter groups
 - `subnet-group` - Subnet groups
+
+### dsql
+Amazon Aurora DSQL
+- `cluster` - DSQL clusters
+
+### timestream-influxdb
+Amazon Timestream for InfluxDB
+- `db_instance` - DB instances
+- `db_parameter_group` - DB parameter groups
 
 ---
 
@@ -705,7 +717,7 @@ AWS Device Farm
 
 ---
 
-## Analytics (8 services)
+## Analytics (9 services)
 
 ### athena
 Amazon Athena
@@ -755,6 +767,12 @@ Amazon QuickSight
 - `data-source` - Data sources
 - `analysis` - Analyses
 
+### datazone
+Amazon DataZone
+- `domain` - Domains
+- `project` - Projects
+- `environment` - Environments
+
 ---
 
 ## AI/ML (12 services)
@@ -774,6 +792,9 @@ Amazon Bedrock
 - `customization-job` - Model customization jobs (active)
 - `provisioned-throughput` - Provisioned throughput
 - `guardrail` - Guardrails
+- `agent` - Bedrock Agents
+- `knowledge-base` - Knowledge bases
+- `data-source` - Knowledge base data sources
 
 ### lexv2
 Amazon Lex V2
@@ -1006,21 +1027,21 @@ Amazon Location Service
 | Category | Services | Resource Types |
 |----------|----------|----------------|
 | Compute | 13 | 50+ |
-| Storage | 7 | 20+ |
-| Database | 12 | 40+ |
+| Storage | 7 | 25+ |
+| Database | 14 | 45+ |
 | Networking | 16 | 60+ |
 | Security | 20 | 50+ |
 | Management & Monitoring | 22 | 50+ |
 | Serverless | 8 | 15+ |
 | Developer Tools | 6 | 15+ |
-| Analytics | 8 | 30+ |
-| AI/ML | 12 | 35+ |
+| Analytics | 9 | 30+ |
+| AI/ML | 12 | 40+ |
 | Media | 7 | 20+ |
 | Migration & Transfer | 2 | 15+ |
 | End User Computing | 3 | 10+ |
 | IoT | 2 | 10+ |
 | Other | 9 | 25+ |
-| **Total** | **147** | **400+** |
+| **Total** | **150** | **415+** |
 
 ---
 
@@ -1034,6 +1055,7 @@ The following AWS default/managed resources are automatically excluded from inve
 | **lakeformation** | `data-lake-settings` | Default settings that exist in every AWS account/region |
 | **mediaconvert** | `Default` queue | AWS default queue that exists in every region |
 | **route53resolver** | `AWSManagedDomains*` firewall domain lists | AWS-managed threat intelligence lists |
+| **timestream-influxdb** | `InfluxDBV3Core`, `InfluxDBV3Enterprise`, `InfluxDBV3Enterprise1Node` parameter groups | AWS default parameter groups (not user-created) |
 | **xray** | `Default` group | AWS default group that exists in every region |
 
 These resources are created and managed by AWS automatically and are not considered user-owned infrastructure.

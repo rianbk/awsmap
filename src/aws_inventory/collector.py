@@ -38,6 +38,7 @@ SERVICE_MODULE_MAP = {
     'opensearch-serverless': 'opensearchserverless',
     'emr-serverless': 'emrserverless',
     'application-autoscaling': 'applicationautoscaling',
+    'timestream-influxdb': 'timestream_influxdb',
 }
 
 # Thread-safe tracking for progress
@@ -81,6 +82,7 @@ def get_available_services() -> List[str]:
         # Database
         'rds', 'dynamodb', 'elasticache', 'memorydb', 'docdb', 'neptune', 'redshift',
         'keyspaces', 'opensearch', 'opensearch-serverless', 'dax', 'redshift-serverless',
+        'dsql', 'timestream-influxdb',
         # Networking
         'vpc', 'elbv2', 'elb', 'route53', 'cloudfront', 'globalaccelerator', 'apigateway', 'apigatewayv2', 'appsync', 'directconnect', 'network-firewall',
         # Security
@@ -97,6 +99,8 @@ def get_available_services() -> List[str]:
         'athena', 'glue', 'mwaa', 'quicksight', 'lakeformation', 'emr', 'emr-serverless', 'cleanrooms',
         # AI/ML
         'sagemaker', 'bedrock', 'frauddetector',
+        # Data Governance
+        'datazone',
         # Image Building
         'imagebuilder',
         # End User

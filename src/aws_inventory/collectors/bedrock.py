@@ -175,4 +175,135 @@ def collect_bedrock_resources(session: boto3.Session, region: Optional[str], acc
     except Exception:
         pass
 
+    # --- Bedrock Agent resources (uses bedrock-agent client) ---
+    bedrock_agent = session.client('bedrock-agent', region_name=region)
+
+    # Agents
+    try:
+        paginator = bedrock_agent.get_paginator('list_agents')
+        for page in paginator.paginate():
+            for agent_summary in page.get('agentSummaries', []):
+                agent_id = agent_summary['agentId']
+
+                try:
+                    agent_response = bedrock_agent.get_agent(agentId=agent_id)
+                    agent = agent_response['agent']
+                    agent_arn = agent['agentArn']
+                    agent_name = agent.get('agentName', agent_id)
+
+                    # Get tags
+                    tags = {}
+                    try:
+                        tag_response = bedrock_agent.list_tags_for_resource(resourceArn=agent_arn)
+                        tags = tag_response.get('tags', {})
+                    except Exception:
+                        pass
+
+                    resources.append({
+                        'service': 'bedrock',
+                        'type': 'agent',
+                        'id': agent_id,
+                        'arn': agent_arn,
+                        'name': agent_name,
+                        'region': region,
+                        'details': {
+                            'status': agent.get('agentStatus'),
+                            'foundation_model': agent.get('foundationModel'),
+                            'instruction': agent.get('instruction'),
+                            'description': agent.get('description'),
+                            'agent_version': agent.get('agentVersion'),
+                            'idle_session_ttl': agent.get('idleSessionTTLInSeconds'),
+                            'agent_resource_role_arn': agent.get('agentResourceRoleArn'),
+                            'created_at': str(agent.get('createdAt', '')),
+                            'updated_at': str(agent.get('updatedAt', '')),
+                            'prepared_at': str(agent.get('preparedAt', '')) if agent.get('preparedAt') else None,
+                        },
+                        'tags': tags
+                    })
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    # Knowledge Bases
+    try:
+        paginator = bedrock_agent.get_paginator('list_knowledge_bases')
+        for page in paginator.paginate():
+            for kb_summary in page.get('knowledgeBaseSummaries', []):
+                kb_id = kb_summary['knowledgeBaseId']
+
+                try:
+                    kb_response = bedrock_agent.get_knowledge_base(knowledgeBaseId=kb_id)
+                    kb = kb_response['knowledgeBase']
+                    kb_arn = kb['knowledgeBaseArn']
+                    kb_name = kb.get('name', kb_id)
+
+                    # Get tags
+                    tags = {}
+                    try:
+                        tag_response = bedrock_agent.list_tags_for_resource(resourceArn=kb_arn)
+                        tags = tag_response.get('tags', {})
+                    except Exception:
+                        pass
+
+                    # Extract embedding model ARN from knowledge base configuration
+                    kb_config = kb.get('knowledgeBaseConfiguration', {})
+                    embedding_model_arn = None
+                    vector_config = kb_config.get('vectorKnowledgeBaseConfiguration', {})
+                    if vector_config:
+                        embedding_model_arn = vector_config.get('embeddingModelArn')
+
+                    storage_config = kb.get('storageConfiguration', {})
+
+                    resources.append({
+                        'service': 'bedrock',
+                        'type': 'knowledge-base',
+                        'id': kb_id,
+                        'arn': kb_arn,
+                        'name': kb_name,
+                        'region': region,
+                        'details': {
+                            'status': kb.get('status'),
+                            'description': kb.get('description'),
+                            'knowledge_base_type': kb_config.get('type'),
+                            'embedding_model_arn': embedding_model_arn,
+                            'storage_type': storage_config.get('type'),
+                            'role_arn': kb.get('roleArn'),
+                            'created_at': str(kb.get('createdAt', '')),
+                            'updated_at': str(kb.get('updatedAt', '')),
+                        },
+                        'tags': tags
+                    })
+
+                    # Data Sources for this Knowledge Base
+                    try:
+                        ds_paginator = bedrock_agent.get_paginator('list_data_sources')
+                        for ds_page in ds_paginator.paginate(knowledgeBaseId=kb_id):
+                            for ds in ds_page.get('dataSourceSummaries', []):
+                                ds_id = ds['dataSourceId']
+                                ds_name = ds.get('name', ds_id)
+
+                                resources.append({
+                                    'service': 'bedrock',
+                                    'type': 'data-source',
+                                    'id': ds_id,
+                                    'arn': f"arn:aws:bedrock:{region}:{account_id}:knowledge-base/{kb_id}/data-source/{ds_id}",
+                                    'name': ds_name,
+                                    'region': region,
+                                    'details': {
+                                        'status': ds.get('status'),
+                                        'description': ds.get('description'),
+                                        'knowledge_base_id': kb_id,
+                                        'updated_at': str(ds.get('updatedAt', '')),
+                                    },
+                                    'tags': {}
+                                })
+                    except Exception:
+                        pass
+
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
     return resources
