@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
 LABEL maintainer="Tarek CHEIKH <tarek@tocconsulting.fr>"
-LABEL description="A fast, comprehensive tool for mapping and inventorying AWS resources across 140+ services"
-LABEL version="1.2.0"
+LABEL description="A fast, comprehensive tool for mapping and inventorying AWS resources across 150+ services"
+LABEL version="1.3.0"
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

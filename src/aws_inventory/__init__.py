@@ -1,5 +1,5 @@
 """
-awsmap - Fast, comprehensive AWS resource inventory across 140+ services.
+awsmap - Fast, comprehensive AWS resource inventory across 150+ services.
 """
 
-__version__ = '1.2.0'
+__version__ = '1.3.0'
